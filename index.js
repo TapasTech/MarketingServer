@@ -39,28 +39,52 @@ app.post('/youshu/data-salon/1/applicants', (req, res, next) => {
 
   var isParamsExist = name && occupation && topic && mobile;
   if (!isParamsExist) {
-    return res.json({error: 'Lost params.'});
+    return res.json({
+      error: 'api',
+      message: 'Lost the necessary params.'
+    });
   }
 
   var isParamsCorrect = is.phoneNumber(mobile) && is.limitString(name, 20) && is.limitString(occupation, 20) && is.limitString(topic, 100);
   if (!isParamsCorrect) {
-    return res.json({error: 'Params error.'});
+    return res.json({
+      error: 'api',
+      message: 'Given params were not correct.'
+    });
   }
 
   var Applicants = mongoose.model('Applicants', schema.applicantSchema);
-  var applicant = new Applicants({
-    name: name,
-    mobile: mobile,
-    occupation: occupation,
-    topic: topic
-  });
 
-  applicant.save((err) => {
-    if (err) {
-      return res.json({error: 'Database error.'})
+  Applicants.find({
+    mobile: mobile
+  }, (err, docs) => {
+
+    if (docs.length) {
+      res.json({
+        error: 'db',
+        message: 'The key has been exist.'
+      })
+    } else {
+      var applicant = new Applicants({
+        name: name,
+        mobile: mobile,
+        occupation: occupation,
+        topic: topic
+      });
+
+      applicant.save((err) => {
+        if (err) {
+          return res.json({error: 'Database error.'})
+        }
+        res.json({
+          message: 'Saved.'
+        })
+      })
     }
-    res.json({message: 'Success.'})
+
   })
+
+
 
 })
 
