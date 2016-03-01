@@ -1,0 +1,59 @@
+{
+  "name": "TapasMarketingServer",
+  "version": "0.1.0",
+  "description": "Node server for marketing part",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./scripts/start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TapasTech/TapasMarketingServer.git"
+  },
+  "author": "TapasFE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TapasTech/TapasMarketingServer/issues"
+  },
+  "homepage": "https://github.com/TapasTech/TapasMarketingServer#readme",
+  "config": {
+    "ghooks": {
+      "commit-msg": "node ./node_modules/.bin/validate-commit-msg"
+    },
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert"
+      ],
+      "warnOnFail": false,
+      "maxSubjectLength": 100
+    }
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.5"
+  },
+  "devDependencies": {
+    "ghooks": "^1.0.3",
+    "validate-commit-msg": "^2.1.0"
+  },
+  "globalDependencies": {
+    "development": [
+      "nodemon"
+    ],
+    "production": [
+      "pm2"
+    ]
+  }
+}
