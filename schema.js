@@ -7,7 +7,11 @@ var applicantSchema = new Schema({
     index: true
   },
   occupation: String,
-  topic: String
+  topic: String,
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = {
