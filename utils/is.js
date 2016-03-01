@@ -8,6 +8,10 @@ Is.prototype.phoneNumber = function(num) {
   return this.regex.phoneNumber.test(num);
 };
 
+Is.prototype.limitString = function(str, len) {
+  return typeof str === 'string' && str.length < len;
+}
+
 var is = new Is();
 
 module.exports = is;

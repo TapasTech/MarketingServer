@@ -37,8 +37,14 @@ app.post('/youshu/data-salon/1/applicants', (req, res, next) => {
   var occupation = req.body.occupation;
   var topic = req.body.topic;
 
-  if (!(name && occupation && topic && is.phoneNumber(mobile))) {
-    return res.json({error: '参数错误。'});
+  var isParamsExist = name && occupation && topic && mobile;
+  if (!isParamsExist) {
+    return res.json({error: 'Lost params.'});
+  }
+
+  var isParamsCorrect = is.phoneNumber(mobile) && is.limitString(name, 20) && is.limitString(occupation, 20) && is.limitString(topic, 100);
+  if (!isParamsCorrect) {
+    return res.json({error: 'Params error.'});
   }
 
   var Applicants = mongoose.model('Applicants', schema.applicantSchema);
@@ -48,12 +54,14 @@ app.post('/youshu/data-salon/1/applicants', (req, res, next) => {
     occupation: occupation,
     topic: topic
   });
+
   applicant.save((err) => {
     if (err) {
-      return res.json({error: err})
+      return res.json({error: 'Database error.'})
     }
-    res.json({name: req.body.name})
+    res.json({message: 'Success.'})
   })
+
 })
 
 app.listen(process.env.PORT, () => {
