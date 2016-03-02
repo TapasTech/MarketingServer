@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); 
 
-app.post('/youshu/data-salon/1/applicants', (req, res, next) => {
+app.post('/youshu/data-salon/001/applicants', (req, res, next) => {
 
   var name = req.body.name;
   var mobile = req.body.mobile;
