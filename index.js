@@ -53,6 +53,14 @@ app.post('/youshu/data-salon/001/applicants', (req, res, next) => {
     });
   }
 
+  var isApplyEnd = new Date() >= new Date('2016-03-08');
+  if (isApplyEnd) {
+    return res.json({
+      error: 'end',
+      message: 'Apply end.'
+    })
+  }
+
   var Applicants = mongoose.model('Applicants', schema.applicantSchema);
 
   Applicants.find({
